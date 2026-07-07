@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Lagos Wealth &amp; Eligibility Engine — Kringstar AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+
+<!-- META PIXEL (carried over from live form) -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window,document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1550508203129868');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1550508203129868&ev=PageView&noscript=1"/></noscript>
+
+<!-- GOOGLE ANALYTICS 4 (carried over from live form) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5GHLP06H0G"></script>
+<script>
+window.dataLayer=window.dataLayer||[];
+function gtag(){dataLayer.push(arguments);}
+gtag('js',new Date());
+gtag('config','G-5GHLP06H0G',{send_page_view:true,page_title:'Lagos Wealth Eligibility Engine'});
+function kga(n,p){try{gtag('event',n,p||{});}catch(e){}}
+</script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0F1E3C;
+  --gold:#C9971A;--gold-lt:#F5C842;
+  --white:#FFFFFF;--muted:rgba(255,255,255,0.45);
+  --card:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.09);
+  --gold-bg:rgba(201,151,26,0.10);--gold-border:rgba(201,151,26,0.35);
+  --red:#C0392B;--red-bg:rgba(192,57,43,.10);--red-border:rgba(192,57,43,.35);
+  --green:#2E9E5B;
+}
+body{font-family:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--navy);color:var(--white);min-height:100vh;overflow-x:hidden}
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 10% 20%,rgba(201,151,26,.07) 0%,transparent 60%),
+  radial-gradient(ellipse 60% 80% at 90% 80%,rgba(201,151,26,.05) 0%,transparent 60%),
+  linear-gradient(160deg,#0F1E3C 0%,#0A1628 50%,#0F1E3C 100%)}
+.page{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:1.25rem 1.25rem 4rem}
+
+.top-line{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;
+  font-size:11px;letter-spacing:.5px;color:rgba(255,255,255,.5);text-align:center;margin-bottom:1rem;padding:8px 10px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(201,151,26,.18);border-radius:40px}
+.top-line strong{color:var(--gold-lt);font-weight:600}
+.top-line .sep{color:rgba(255,255,255,.2)}
+
+.eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--gold-bg);border:1px solid var(--gold-border);border-radius:40px;padding:5px 16px;margin-bottom:.6rem;font-size:10px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--gold-lt)}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--gold)}
+.header{text-align:center;margin-bottom:1rem}
+.header h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.6rem,5vw,2.5rem);font-weight:700;line-height:1.15;margin-bottom:.4rem;letter-spacing:-.02em}
+.header h1 span{color:var(--gold)}
+.header p{font-size:13px;color:var(--muted);line-height:1.6;max-width:440px;margin:0 auto}
+
+.prog-wrap{margin-bottom:1rem}
+.prog-labels{display:flex;justify-content:space-between;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:6px}
+.prog-labels .cur{color:var(--gold)}
+.prog-bar{height:2px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gold),var(--gold-lt));border-radius:2px;transition:width .5s ease;width:0%}
+
+.card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:1.5rem 1.5rem 2rem;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(201,151,26,.35),transparent)}
+.step{display:none}
+.step.active{display:block;animation:up .3s ease forwards}
+@keyframes up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.q-num{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;font-weight:500}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.2rem,3.5vw,1.65rem);font-weight:600;line-height:1.3;margin-bottom:.35rem}
+.q-hint{font-size:13px;color:var(--muted);margin-bottom:1.25rem;line-height:1.5}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--card);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;font-size:14px;color:rgba(255,255,255,.75);text-align:left;width:100%;font-family:'DM Sans',sans-serif}
+.opt:hover{background:var(--gold-bg);border-color:var(--gold-border);color:var(--white)}
+.opt.sel{background:rgba(201,151,26,.13);border-color:rgba(201,151,26,.55);color:var(--white)}
+.radio{width:16px;height:16px;border-radius:50%;border:1.5px solid rgba(255,255,255,.2);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.opt.sel .radio{background:var(--gold);border-color:var(--gold)}
+.opt.sel .radio::after{content:'';width:5px;height:5px;border-radius:50%;background:#fff}
+.fields{display:flex;flex-direction:column;gap:12px}
+.flabel{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:5px;display:block}
+.finput{width:100%;padding:13px 17px;background:var(--card);border:1px solid var(--border);border-radius:12px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
+.finput:focus{border-color:var(--gold-border)}
+.finput::placeholder{color:rgba(255,255,255,.18)}
+.finput.err{border-color:var(--red)!important}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;gap:10px}
+.btn-back{padding:11px 18px;background:transparent;border:1px solid rgba(255,255,255,.1);border-radius:10px;color:rgba(255,255,255,.45);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.btn-back:hover{border-color:rgba(255,255,255,.25);color:var(--white)}
+.btn-next{flex:1;padding:13px 20px;background:linear-gradient(135deg,var(--gold) 0%,var(--gold-lt) 100%);border:none;border-radius:10px;color:var(--navy);font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-next:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(201,151,26,.3)}
+.btn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none}
+
+.result-wrap{text-align:center;padding:.25rem 0}
+.badge{display:inline-block;padding:6px 18px;border-radius:30px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;margin-bottom:1rem}
+.badge-eligible{background:rgba(201,151,26,.13);border:1px solid var(--gold-border);color:var(--gold-lt)}
+.badge-review{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55)}
+.gap-label{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:.35rem}
+.gap-number{font-family:'Cormorant Garamond',serif;font-size:clamp(2.2rem,9vw,3.4rem);font-weight:700;color:var(--red);line-height:1;margin-bottom:.5rem}
+.gap-sub{font-size:12.5px;color:rgba(255,255,255,.45);max-width:420px;margin:0 auto 1.5rem;line-height:1.6}
+
+.pivot-box{background:rgba(201,151,26,.08);border:1px solid rgba(201,151,26,.25);border-radius:14px;padding:1.1rem 1.25rem;text-align:left;margin-bottom:1.1rem;display:flex;gap:14px;align-items:flex-start}
+.pivot-photo{width:52px;height:52px;border-radius:50%;flex-shrink:0;object-fit:cover;border:2px solid var(--gold-border);background:var(--gold-bg)}
+.pivot-photo-fallback{width:52px;height:52px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--gold),var(--gold-lt));display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--navy);font-family:'Cormorant Garamond',serif;font-size:18px;border:2px solid var(--gold-border)}
+.pivot-text{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6}
+.pivot-text strong{color:var(--gold-lt)}
+
+.report-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:14px 20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.15);border-radius:12px;color:var(--white);font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;cursor:pointer;transition:all .2s;text-decoration:none;margin-bottom:1rem}
+.report-btn:hover{border-color:var(--gold-border);background:var(--gold-bg)}
+.report-icon{font-size:1.1rem}
+
+.whatsapp-notice{background:rgba(37,211,102,.08);border:1px solid rgba(37,211,102,.25);border-radius:14px;padding:1.1rem 1.25rem;margin:1rem 0;display:flex;align-items:flex-start;gap:12px;text-align:left}
+.wa-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
+.wa-text{font-size:13px;color:rgba(255,255,255,.7);line-height:1.6}
+.wa-text strong{color:#25D366}
+
+.restart-btn{padding:10px 24px;background:transparent;border:1px solid rgba(255,255,255,.15);border-radius:10px;color:rgba(255,255,255,.5);font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;transition:all .2s}
+.restart-btn:disabled{opacity:.3;cursor:not-allowed}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="page">
+
+  <div class="top-line">
+    <strong>LASRERA Registered</strong><span class="sep">·</span>Title-Verified Listings<span class="sep">·</span>10 Years Experience
+  </div>
+
+  <div class="header">
+    <div class="eyebrow"><div class="dot"></div>LAGOS WEALTH &amp; ELIGIBILITY ENGINE<div class="dot"></div></div>
+    <h1>Stop Paying Your <span>Landlord's</span> Mortgage</h1>
+    <p>Answer 7 quick questions. See exactly how much rent has already cost you, and get matched with verified Ajah/Sangotedo homes.</p>
+  </div>
+
+  <div class="prog-wrap">
+    <div class="prog-labels"><span id="prog-label">Question 1 of 7</span><span class="cur" id="prog-pct">0%</span></div>
+    <div class="prog-bar"><div class="prog-fill" id="prog-fill"></div></div>
+  </div>
+
+  <div class="card" id="card-area"></div>
+
+</div>
+
+<script>
+var WEBHOOK = 'https://hook.us2.make.com/gh8hqll4kdltuyk1eg52zk567w1n8f1g';
+var clientName = 'Bamidele';
+var REPORT_FILE = 'report.pdf';
+var AGENT_PHOTO = 'bamidele-photo.jpg';
+
+var QUESTIONS = [
+
+  {
+    key: 'annual_rent',
+    text: 'What is your current annual rent?',
+    hint: 'This is what tells us how much you are losing to your landlord every year.',
+    options: [
+      { label: 'Below \u20a61,500,000',              value: 1200000, qualify: false },
+      { label: '\u20a61,500,000 \u2013 \u20a62,500,000', value: 2000000, qualify: false },
+      { label: '\u20a62,500,000 \u2013 \u20a63,500,000', value: 3000000, qualify: true  },
+      { label: '\u20a63,500,000 \u2013 \u20a65,000,000', value: 4200000, qualify: true  },
+      { label: 'Above \u20a65,000,000',               value: 6000000, qualify: true  }
+    ]
+  },
+
+  {
+    key: 'years_renting',
+    text: 'How many years have you been renting in Lagos?',
+    hint: 'This shows us how much you have already lost to rent so far.',
+    options: [
+      { label: 'Less than 1 year',   value: 0.5, qualify: false },
+      { label: '1 \u2013 2 years',    value: 1.5, qualify: false },
+      { label: '3 \u2013 5 years',    value: 4,   qualify: false },
+      { label: '6 \u2013 10 years',   value: 8,   qualify: false },
+      { label: 'More than 10 years', value: 12,  qualify: false }
+    ]
+  },
+
+  {
+    key: 'target_budget',
+    text: 'What is your target budget for a home in the Ajah/Sangotedo corridor?',
+    hint: 'This helps us match you to the right unit type. All responses are confidential.',
+    options: [
+      { label: 'Below \u20a623,000,000',                 value: 0,         qualify: 'disqualify' },
+      { label: 'Studio range \u2013 from \u20a623,000,000',  value: 23000000, qualify: true },
+      { label: '2-Bedroom range \u2013 from \u20a667,000,000', value: 67000000, qualify: true },
+      { label: '3-Bedroom range \u2013 from \u20a680,000,000', value: 80000000, qualify: true },
+      { label: 'Not sure yet \u2013 I\u2019d like to see options first', value: 0, qualify: false }
+    ]
+  },
+
+  {
+    key: 'proof_of_funds',
+    text: 'Are you prepared to provide proof of funds once matched with a verified agent?',
+    hint: 'No documents needed now \u2014 this just confirms you are ready to move forward.',
+    options: [
+      { label: 'Yes \u2013 I can provide it',              qualify: true },
+      { label: 'Not at this stage',                        qualify: false }
+    ]
+  },
+
+  {
+    key: 'purchase_timeline',
+    text: 'When are you looking to complete this purchase?',
+    hint: 'This helps us prioritise and match you to available listings.',
+    options: [
+      { label: 'Within the next 1 to 3 months', qualify: true },
+      { label: 'Within 3 to 6 months',          qualify: true },
+      { label: 'Within 6 to 12 months',         qualify: true },
+      { label: 'Just exploring for now',        qualify: false }
+    ]
+  },
+
+  {
+    key: 'biggest_fear',
+    text: 'What is your biggest fear about buying property in Lagos?',
+    hint: 'This helps us know exactly how to protect you through our verification process.',
+    options: [
+      { label: 'Paying for a property with a fake or disputed title', qualify: false },
+      { label: 'Moving to an area that turns out to be unsafe',       qualify: false },
+      { label: 'Agents who disappear after collecting money',         qualify: false },
+      { label: 'Committing to a location far from work/family',       qualify: false }
+    ]
+  },
+
+  {
+    key: 'readiness_to_speak',
+    text: 'Are you ready to speak with Bamidele Adewale \u2013 our verified Lagos property agent \u2013 this week?',
+    hint: 'Bamidele responds to all verified matches within 2 hours.',
+    options: [
+      { label: 'Yes \u2013 I am ready to be contacted immediately',                 qualify: false },
+      { label: 'Yes \u2013 but I need a few more days to prepare',                  qualify: false },
+      { label: 'I would prefer to receive property options on WhatsApp first',      qualify: false }
+    ]
+  }
+
+];
+
+var TOTAL_Q = QUESTIONS.length;
+var answers = {};
+var contact = { name:'', phone:'' };
+
+(function build() {
+  var card = document.getElementById('card-area');
+  var html = '';
+
+  for (var i = 0; i < QUESTIONS.length; i++) {
+    var q = QUESTIONS[i];
+    var num = i + 1;
+    html += '<div class="step' + (i === 0 ? ' active' : '') + '" id="step-' + num + '">';
+    html += '<div class="q-num">Question ' + num + ' of ' + TOTAL_Q + '</div>';
+    html += '<div class="q-text">' + q.text + '</div>';
+    html += '<div class="q-hint">' + q.hint + '</div>';
+    html += '<div class="opts" id="opts-' + num + '">';
+    for (var j = 0; j < q.options.length; j++) {
+      html += '<button class="opt" onclick="pick(' + num + ',' + j + ',this)"><div class="radio"></div>' + q.options[j].label + '</button>';
+    }
+    html += '</div><div class="nav">';
+    if (num > 1) html += '<button class="btn-back" onclick="goBack(' + num + ')">Back</button>';
+    html += '<button class="btn-next" id="btn-' + num + '" disabled onclick="goNext(' + num + ')">Continue</button>';
+    html += '</div></div>';
+  }
+
+  html += '<div class="step" id="step-contact">';
+  html += '<div class="q-num">Almost done</div>';
+  html += '<div class="q-text">Where should we send your Wealth Report?</div>';
+  html += '<div class="q-hint">Enter your details to see your personalised report and unlock your verified matches.</div>';
+  html += '<div class="fields">';
+  html += '<div><label class="flabel">Full Name</label><input class="finput" id="f-name" type="text" placeholder="e.g. Adebayo Okafor" autocomplete="name"></div>';
+  html += '<div><label class="flabel">WhatsApp Number</label><input class="finput" id="f-phone" type="tel" placeholder="e.g. 08012345678" autocomplete="tel"></div>';
+  html += '</div>';
+  html += '<div class="nav"><button class="btn-back" onclick="goBack(\'contact\')">Back</button>';
+  html += '<button class="btn-next" onclick="submitForm()">See My Wealth Report</button></div>';
+  html += '</div>';
+
+  html += '<div class="step" id="step-result"><div class="result-wrap">';
+  html += '<div class="badge" id="elig-badge">Assessment Complete</div>';
+  html += '<div class="gap-label">Already Lost To Rent</div>';
+  html += '<div class="gap-number" id="gap-number-past" style="font-size:clamp(1.6rem,6vw,2.3rem);margin-bottom:.15rem">\u20a60</div>';
+  html += '<div class="gap-sub" style="margin-bottom:1rem">Based on the years you have already spent renting.</div>';
+  html += '<div class="gap-label">Projected 5-Year Loss If Nothing Changes</div>';
+  html += '<div class="gap-number" id="gap-number">\u20a60</div>';
+  html += '<div class="gap-sub">This is money that could instead be building equity in a home you own.</div>';
+
+  html += '<div class="pivot-box">';
+  html += '<img class="pivot-photo" id="agent-photo-img" src="' + AGENT_PHOTO + '" alt="Bamidele Adewale" onerror="this.style.display=\'none\';document.getElementById(\'agent-photo-fallback\').style.display=\'flex\';">';
+  html += '<div class="pivot-photo-fallback" id="agent-photo-fallback" style="display:none">BA</div>';
+  html += '<div class="pivot-text">A senior consultant from <strong>Mr. Bamidele\u2019s team</strong> will call you within 24 hours to discuss your report and verified matches in the Ajah/Sangotedo corridor.</div>';
+  html += '</div>';
+
+  html += '<a class="report-btn" id="report-download" href="' + REPORT_FILE + '" download>';
+  html += '<span class="report-icon">\ud83d\udcc4</span> Download: 2026 Security Report &amp; Scam-Proof Checklist (PDF)';
+  html += '</a>';
+
+  html += '<div class="whatsapp-notice">';
+  html += '<div class="wa-icon">\ud83d\udcf1</div>';
+  html += '<div class="wa-text"><strong>Check your WhatsApp.</strong><br>Your personalised report summary and next steps will be sent shortly.</div>';
+  html += '</div>';
+
+  html += '<button class="restart-btn" onclick="restart()">Submit Another Response</button>';
+  html += '</div></div>';
+
+  card.innerHTML = html;
+  setProgress(1);
+})();
+
+function setProgress(step) {
+  var pct = step === 'contact' ? 90 : step === 'result' ? 100 : Math.round((step / TOTAL_Q) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-pct').textContent = pct + '%';
+  document.getElementById('prog-label').textContent =
+    step === 'contact' ? 'Almost done' :
+    step === 'result'  ? 'Complete' :
+    'Question ' + step + ' of ' + TOTAL_Q;
+}
+
+function showStep(n) {
+  document.querySelectorAll('.step').forEach(function(el){ el.classList.remove('active'); });
+  document.getElementById('step-' + n).classList.add('active');
+  setProgress(n);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function pick(stepNum, optIdx, el) {
+  document.querySelectorAll('#opts-' + stepNum + ' .opt').forEach(function(o){ o.classList.remove('sel'); });
+  el.classList.add('sel');
+  var opt = QUESTIONS[stepNum - 1].options[optIdx];
+  answers[stepNum] = {
+    label: opt.label,
+    key: QUESTIONS[stepNum - 1].key,
+    value: opt.value !== undefined ? opt.value : null,
+    qualify: opt.qualify
+  };
+  var btn = document.getElementById('btn-' + stepNum);
+  if (btn) btn.disabled = false;
+  kga('question_' + stepNum + '_completed', { client: clientName });
+}
+
+function goNext(current) {
+  if (!answers[current]) return;
+  if (current === TOTAL_Q) {
+    kga('all_questions_complete', { client: clientName });
+    try { fbq('trackCustom', 'AllQuestionsComplete'); } catch(e) {}
+    showStep('contact');
+  } else {
+    showStep(current + 1);
+  }
+}
+
+function goBack(current) {
+  if (current === 'contact') { showStep(TOTAL_Q); }
+  else { showStep(current - 1); }
+}
+
+function calcEligibility() {
+  // Question order: 1=annual_rent, 2=years_renting, 3=target_budget, 4=proof_of_funds, 5=timeline, 6=biggest_fear, 7=readiness
+  if (answers[3] && answers[3].qualify === 'disqualify') return false;
+  var rentVal   = answers[1] ? answers[1].value : 0;
+  var budgetVal = answers[3] ? answers[3].value : 0;
+  var pof       = answers[4] ? answers[4].qualify === true : false;
+  var timelineOk = answers[5] ? answers[5].qualify === true : false;
+  return (rentVal >= 3000000 && budgetVal >= 23000000 && pof === true && timelineOk === true);
+}
+
+function submitForm() {
+  var nameEl  = document.getElementById('f-name');
+  var phoneEl = document.getElementById('f-phone');
+  nameEl.classList.remove('err');
+  phoneEl.classList.remove('err');
+  var ok = true;
+  if (nameEl.value.trim().length < 2)   { nameEl.classList.add('err');  ok = false; }
+  if (phoneEl.value.trim().length < 10) { phoneEl.classList.add('err'); ok = false; }
+  if (!ok) return;
+
+  var submitBtn = document.querySelector('#step-contact .btn-next');
+  if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Submitting\u2026'; }
+
+  contact.name  = nameEl.value.trim();
+  contact.phone = phoneEl.value.trim();
+
+  var rentVal      = answers[1] ? answers[1].value : 0;
+  var yearsRenting = answers[2] ? answers[2].value : 0;
+  var alreadyLost  = Math.round(rentVal * yearsRenting);
+  var wealthGap    = rentVal * 5;
+  var isEligible   = calcEligibility();
+  var status       = isEligible ? 'Highly Eligible' : 'Assessment Complete';
+
+  kga('form_complete', { client: clientName, eligibility: status, wealth_gap: wealthGap, already_lost: alreadyLost });
+  if (isEligible) kga('lead_qualified', { client: clientName, wealth_gap: wealthGap });
+
+  if (isEligible) {
+    try { fbq('track', 'Lead'); } catch(e) {}
+    try { fbq('trackCustom', 'KringstarWealthEngineEligible', { wealth_gap: wealthGap }); } catch(e) {}
+  }
+
+  document.getElementById('gap-number-past').textContent =
+    '\u20a6' + alreadyLost.toLocaleString('en-NG');
+  document.getElementById('gap-number').textContent =
+    '\u20a6' + wealthGap.toLocaleString('en-NG');
+  var badge = document.getElementById('elig-badge');
+  if (isEligible) {
+    badge.textContent = 'Highly Eligible';
+    badge.className = 'badge badge-eligible';
+  } else {
+    badge.textContent = 'Assessment Complete';
+    badge.className = 'badge badge-review';
+  }
+
+  showStep('result');
+
+  var params = [
+    'source_url='            + encodeURIComponent(window.location.href),
+    'client_name='           + encodeURIComponent(clientName),
+    'full_name='             + encodeURIComponent(contact.name),
+    'whatsapp='              + encodeURIComponent(contact.phone),
+    'eligibility_status='    + encodeURIComponent(status),
+    'wealth_gap='            + encodeURIComponent(wealthGap),
+    'submitted_at='          + encodeURIComponent(new Date().toISOString())
+  ];
+  for (var i = 1; i <= TOTAL_Q; i++) {
+    params.push(encodeURIComponent(QUESTIONS[i-1].key) + '=' + encodeURIComponent(answers[i] ? answers[i].label : ''));
+  }
+  var body = params.join('&');
+
+  fetch(WEBHOOK, { method: 'POST', mode: 'no-cors', body: body }).catch(function(){});
+}
+
+function restart() {
+  answers = {};
+  contact = { name:'', phone:'' };
+  document.getElementById('f-name').value = '';
+  document.getElementById('f-phone').value = '';
+  document.querySelectorAll('.opt').forEach(function(o){ o.classList.remove('sel'); });
+  document.querySelectorAll('[id^="btn-"]').forEach(function(b){ b.disabled = true; });
+  showStep(1);
+}
+</script>
+</body>
+</html>
