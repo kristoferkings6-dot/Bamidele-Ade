@@ -416,19 +416,19 @@ function submitForm() {
 
   showStep('result');
 
-  var params = [
-    'source_url='            + encodeURIComponent(window.location.href),
-    'client_name='           + encodeURIComponent(clientName),
-    'full_name='             + encodeURIComponent(contact.name),
-    'whatsapp='              + encodeURIComponent(contact.phone),
-    'eligibility_status='    + encodeURIComponent(status),
-    'wealth_gap='            + encodeURIComponent(wealthGap),
-    'submitted_at='          + encodeURIComponent(new Date().toISOString())
-  ];
-  for (var i = 1; i <= TOTAL_Q; i++) {
-    params.push(encodeURIComponent(QUESTIONS[i-1].key) + '=' + encodeURIComponent(answers[i] ? answers[i].label : ''));
-  }
-  var body = params.join('&');
+419  var params = [
+420    'source_url='            + encodeURIComponent(window.location.href),
+421    'client_name='           + encodeURIComponent(clientName),
+422    'submitted_at='          + encodeURIComponent(new Date().toISOString())
+423  ];
+424  for (var i = 1; i <= TOTAL_Q; i++) {
+425    params.push(encodeURIComponent(QUESTIONS[i-1].key) + '=' + encodeURIComponent(answers[i] ? answers[i].label : ''));
+426  }
+427  params.push('full_name='             + encodeURIComponent(contact.name));
+428  params.push('whatsapp='              + encodeURIComponent(contact.phone));
+429  params.push('eligibility_status='    + encodeURIComponent(status));
+430  params.push('wealth_gap='            + encodeURIComponent(wealthGap));
+431  var body = params.join('&');
 
   fetch(WEBHOOK, { method: 'POST', mode: 'no-cors', body: body }).catch(function(){});
 }
