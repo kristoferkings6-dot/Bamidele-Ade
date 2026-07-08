@@ -417,12 +417,12 @@ function submitForm() {
   showStep('result');
 
   var params = [
-  'source_url='            + encodeURIComponent(window.location.href),
-  'client_name='           + encodeURIComponent(clientName),
-  'submitted_at='          + encodeURIComponent(new Date().toISOString())
+   'source_url='            + encodeURIComponent(window.location.href),
+   'client_name='           + encodeURIComponent(clientName),
+   'submitted_at='          + encodeURIComponent(new Date().toISOString())
   ];
   for (var i = 1; i <= TOTAL_Q; i++) {
-  params.push(encodeURIComponent(QUESTIONS[i-1].key) + '=' + encodeURIComponent(answers[i] ? answers[i].label : ''));
+   params.push(encodeURIComponent(QUESTIONS[i-1].key) + '=' + encodeURIComponent(answers[i] ? answers[i].label : ''));
   }
   params.push('full_name='             + encodeURIComponent(contact.name));
   params.push('whatsapp='              + encodeURIComponent(contact.phone));
