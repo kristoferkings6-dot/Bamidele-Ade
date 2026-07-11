@@ -200,7 +200,7 @@ var QUESTIONS = [
   {
     key: 'proof_of_funds',
     text: 'Are you prepared to provide proof of funds to secure a verified listing?',
-    hint: 'No documents needed now \u2014 this just confirms you are ready to move forward.',
+    hint: 'No documents needed now \u2014 this just confirms you are ready to move forwardAlmost done — just 2 more questions)(.',
     options: [
       { label: 'Yes \u2013 I can provide it',              qualify: true },
       { label: 'Not at this stage',                        qualify: false }
@@ -286,14 +286,17 @@ var contact = { name:'', phone:'' };
   html += '<div class="gap-label">Already Lost To Rent</div>';
   html += '<div class="gap-number" id="gap-number-past" style="font-size:clamp(1.6rem,6vw,2.3rem);margin-bottom:.15rem">\u20a60</div>';
   html += '<div class="gap-sub" style="margin-bottom:1rem">Based on the years you have already spent renting.</div>';
-  html += '<div class="gap-label">Projected 5-Year Loss If Nothing Changes</div>';
-  html += '<div class="gap-number" id="gap-number">\u20a60</div>';
-  html += '<div class="gap-sub">This is money that could instead be building equity in a home you own.</div>';
+ html += '<div class="gap-label">Projected 5-Year Loss If Nothing Changes</div>';
+html += '<div class="gap-number" id="gap-number">\u20a60</div>';
+html += '<div class="gap-sub">This is money that could instead be building equity in a home you own.</div>';
+html += '<div class="gap-label">Projected 10-Year Loss If Nothing Changes</div>';
+html += '<div class="gap-number" id="gap-number-10yr">\u20a60</div>';
+html += '<div class="gap-sub">This is double the impact over a full decade of renting instead of owning.</div>';
 
   html += '<div class="pivot-box">';
   html += '<img class="pivot-photo" id="agent-photo-img" src="' + AGENT_PHOTO + '" alt="Bamidele Adewale" onerror="this.style.display=\'none\';document.getElementById(\'agent-photo-fallback\').style.display=\'flex\';">';
   html += '<div class="pivot-photo-fallback" id="agent-photo-fallback" style="display:none">BA</div>';
-  html += '<div class="pivot-text">A senior consultant from <strong>Mr. Bamidele\u2019s team</strong> will call you within 24 hours to discuss your report and verified matches in the Ajah/Sangotedo corridor.</div>';
+  html += '<div class="pivot-text" style="margin-top:8px;">LASRERA Registered \u00b7 10 Years on the Sangotedo\u2013Ajah Corridor \u00b7 Every Title Verified Before Listing.</div>';
   html += '</div>';
 
   html += '<a class="report-btn" id="report-download" href="' + REPORT_FILE + '" download>';
@@ -389,7 +392,7 @@ function submitForm() {
   var rentVal      = answers[1] ? answers[1].value : 0;
   var yearsRenting = answers[2] ? answers[2].value : 0;
   var alreadyLost  = Math.round(rentVal * yearsRenting);
-  var wealthGap    = rentVal * 5;
+  var wealthGap10    = rentVal * 10;
   var isEligible   = calcEligibility();
   var status       = isEligible ? 'Highly Eligible' : 'Assessment Complete';
 
@@ -403,8 +406,7 @@ function submitForm() {
 
   document.getElementById('gap-number-past').textContent =
     '\u20a6' + alreadyLost.toLocaleString('en-NG');
-  document.getElementById('gap-number').textContent =
-    '\u20a6' + wealthGap.toLocaleString('en-NG');
+document.getElementById('gap-number-10yr').textContent = '\u20a6' + wealthGap10.toLocaleString('en-NG');
   var badge = document.getElementById('elig-badge');
   if (isEligible) {
     badge.textContent = 'Highly Eligible';
