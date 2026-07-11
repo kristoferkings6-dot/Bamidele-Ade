@@ -198,15 +198,14 @@ var QUESTIONS = [
   },
 
   {
-    key: 'proof_of_funds',
+key: 'proof_of_funds',
     text: 'Are you prepared to provide proof of funds to secure a verified listing?',
-    hint: 'No documents needed now \u2014 this just confirms you are ready to move forwardAlmost done — just 2 more questions)(.',
+    hint: 'No documents needed now \u2014 this just confirms you are ready to move forward. Almost done \u2014 just 2 more questions.',
     options: [
       { label: 'Yes \u2013 I can provide it',              qualify: true },
       { label: 'Not at this stage',                        qualify: false }
     ]
   },
-
   {
     key: 'purchase_timeline',
     text: 'How soon would you like to move into your own verified home?',
@@ -392,7 +391,8 @@ function submitForm() {
   var rentVal      = answers[1] ? answers[1].value : 0;
   var yearsRenting = answers[2] ? answers[2].value : 0;
   var alreadyLost  = Math.round(rentVal * yearsRenting);
-  var wealthGap10    = rentVal * 10;
+  var wealthGap      = rentVal * 5;
+var wealthGap10    = rentVal * 10;
   var isEligible   = calcEligibility();
   var status       = isEligible ? 'Highly Eligible' : 'Assessment Complete';
 
@@ -406,6 +406,7 @@ function submitForm() {
 
   document.getElementById('gap-number-past').textContent =
     '\u20a6' + alreadyLost.toLocaleString('en-NG');
+  document.getElementById('gap-number').textContent = '\u20a6' + wealthGap.toLocaleString('en-NG');
 document.getElementById('gap-number-10yr').textContent = '\u20a6' + wealthGap10.toLocaleString('en-NG');
   var badge = document.getElementById('elig-badge');
   if (isEligible) {
